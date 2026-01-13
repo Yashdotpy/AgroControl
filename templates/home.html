@@ -21,6 +21,20 @@
             <a href="{% url 'register' %}">Register</a>
         {% endif %}
     </div>
+
+    <div>
+        {% if user.is_authenticated %}
+        {{ user.username }}
+        {% if user.profile.role == 'buyer' %}
+            <a href="{% url 'buyer_orders' %}">My Orders</a>
+        {% endif %}
+        {% if user.profile.role == 'farmer' %}
+            <a href="{% url 'farmer_dashboard' %}">Dashboard</a>
+        {% endif %}
+        <a href="{% url 'logout' %}">Logout</a>
+        {% else %}
+
+    </div>
 </div>
 
 <h1 class="page-title">Fresh Crops Direct from Farmers</h1>
