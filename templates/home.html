@@ -1,58 +1,46 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
 <head>
     <title>AgroControl</title>
-    <style>
-        body { font-family: Arial; background: #f5f5f5; }
-        .card {
-            background: white;
-            width: 250px;
-            padding: 15px;
-            margin: 10px;
-            display: inline-block;
-            border-radius: 8px;
-        }
-        img { width: 100%; height: 150px; object-fit: cover; }
-        button {
-            background: green;
-            color: white;
-            padding: 8px;
-            border: none;
-            width: 100%;
-            cursor: pointer;
-        }
-    </style>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
 
-<h1 style="text-align:center;">🌾 AgroControl Marketplace</h1>
+<div class="navbar">
+    <div><strong>🌾 AgroControl</strong></div>
+    <div>
+        {% if user.is_authenticated %}
+            {{ user.username }}
+            {% if user.profile.role == 'farmer' %}
+                <a href="{% url 'farmer_dashboard' %}">Dashboard</a>
+            {% endif %}
+            <a href="{% url 'logout' %}">Logout</a>
+        {% else %}
+            <a href="{% url 'login' %}">Login</a>
+            <a href="{% url 'register' %}">Register</a>
+        {% endif %}
+    </div>
+</div>
 
-{% if user.is_authenticated %}
-  Welcome {{ user.username }} |
-  {% if user.profile.role == 'farmer' %}
-    <a href="{% url 'farmer_dashboard' %}">Farmer Dashboard</a> |
-  {% endif %}
-  <a href="{% url 'logout' %}">Logout</a>
-{% else %}
-  <a href="{% url 'login' %}">Login</a> |
-  <a href="{% url 'register' %}">Register</a>
-{% endif %}
+<h1 class="page-title">Fresh Crops Direct from Farmers</h1>
 
-<div style="text-align:center;">
-    {% for crop in crops %}
+<div class="container">
+{% for crop in crops %}
     <div class="card">
         <img src="{{ crop.image.url }}">
-        <h3>{{ crop.name }}</h3>
-        <p>₹ {{ crop.price }}</p>
-        <p>{{ crop.description }}</p>
-        <a href="{% url 'buy_crop' crop.id %}">
-            <button>Buy</button>
-        </a>
-
+        <div class="card-body">
+            <h3>{{ crop.name }}</h3>
+            <p class="price">₹ {{ crop.price }}</p>
+            <p>{{ crop.description|truncatewords:10 }}</p>
+            <a href="{% url 'buy_crop' crop.id %}">
+                <button class="btn">Buy</button>
+            </a>
+        </div>
     </div>
-    {% empty %}
+{% empty %}
     <p>No crops available</p>
-    {% endfor %}
+{% endfor %}
 </div>
 
 </body>

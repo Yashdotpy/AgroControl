@@ -1,28 +1,41 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
 <head>
     <title>Farmer Dashboard</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
 
-<h2>👨‍🌾 Farmer Dashboard</h2>
-
-<p>Welcome, {{ request.user.username }}</p>
-
-<a href="{% url 'add_crop' %}">➕ Add New Crop</a>
-<br><br>
-
-<h3>My Crops</h3>
-
-{% for crop in crops %}
-    <div style="border:1px solid #ccc; padding:10px; margin:10px;">
-        <h4>{{ crop.name }}</h4>
-        <p>Price: ₹{{ crop.price }}</p>
-        <p>Quantity: {{ crop.quantity }}</p>
+<div class="navbar">
+    <div>👨‍🌾 Farmer Dashboard</div>
+    <div>
+        <a href="{% url 'home' %}">Home</a>
+        <a href="{% url 'logout' %}">Logout</a>
     </div>
-{% empty %}
-    <p>No crops added yet.</p>
-{% endfor %}
+</div>
+
+<div class="dashboard">
+    <h2 class="page-title">My Crops</h2>
+
+    <a href="{% url 'add_crop' %}">
+        <button class="btn">➕ Add New Crop</button>
+    </a>
+
+    <div class="container">
+        {% for crop in crops %}
+            <div class="card">
+                <div class="card-body">
+                    <h3>{{ crop.name }}</h3>
+                    <p class="price">₹ {{ crop.price }}</p>
+                    <p>Quantity: {{ crop.quantity }}</p>
+                </div>
+            </div>
+        {% empty %}
+            <p>No crops added yet</p>
+        {% endfor %}
+    </div>
+</div>
 
 </body>
 </html>
