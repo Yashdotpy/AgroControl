@@ -13,6 +13,7 @@
         {% if user.is_authenticated %}
             {{ user.username }}
             {% if user.profile.role == 'buyer' %}
+                <a href="{% url 'view_cart' %}">Cart</a>
                 <a href="{% url 'buyer_orders' %}">My Orders</a>
             {% endif %}           
             {% if user.profile.role == 'farmer' %}
@@ -50,8 +51,8 @@
             <h3>{{ crop.name }}</h3>
             <p class="price">₹ {{ crop.price }}</p>
             <p>{{ crop.description|truncatewords:10 }}</p>
-            <a href="{% url 'buy_crop' crop.id %}">
-                <button class="btn">Buy</button>
+            <a href="{% url 'add_to_cart' crop.id %}">
+                <button class="btn">Add to Cart</button>
             </a>
         </div>
     </div>

@@ -16,3 +16,17 @@ class Order(models.Model):
 
     def __str__(self):
         return f"Order {self.id} - {self.crop.name}"
+
+class Cart(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.user.username}'s Cart"
+
+class CartItem(models.Model):
+    cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
+    crop = models.ForeignKey(Crop, on_delete=models.CASCADE)
+    quantity = models.IntegerField(default=1)
+
+    def total_price(self):
+        return self.crop.price * self.quantity
