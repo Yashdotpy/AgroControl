@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Farmer Dashboard</title>
+</head>
+<body>
+
+<h2>👨‍🌾 Farmer Dashboard</h2>
+
+<p>Welcome, {{ request.user.username }}</p>
+
+<a href="{% url 'add_crop' %}">➕ Add New Crop</a>
+<br><br>
+
+<h3>My Crops</h3>
+
+{% for crop in crops %}
+    <div style="border:1px solid #ccc; padding:10px; margin:10px;">
+        <h4>{{ crop.name }}</h4>
+        <p>Price: ₹{{ crop.price }}</p>
+        <p>Quantity: {{ crop.quantity }}</p>
+    </div>
+{% empty %}
+    <p>No crops added yet.</p>
+{% endfor %}
+
+</body>
+</html>

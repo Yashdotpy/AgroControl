@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: agrocontrol
+    env: python
+    buildCommand: "./build.sh"
+    startCommand: "gunicorn agrocontrol.wsgi:application"
+    envVars:
+      - key: DJANGO_SETTINGS_MODULE
+        value: agrocontrol.settings
