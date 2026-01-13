@@ -22,8 +22,12 @@
         <div class="card">
             <div class="card-body">
                 <h3>{{ item.crop.name }}</h3>
-                <p>Price: ₹{{ item.crop.price }}</p>
-                <p>Quantity: {{ item.quantity }}</p>
+                <p>Quantity:
+                <a href="{% url 'update_cart' item.id 'decrease' %}">➖</a>
+                {{ item.quantity }} {{ item.crop.unit }}
+                <a href="{% url 'update_cart' item.id 'increase' %}">➕</a>
+                </p>
+                <p>Price: ₹{{ item.crop.price }} / {{ item.crop.unit }}</p>
                 <p>Total: ₹{{ item.total_price }}</p>
             </div>
         </div>

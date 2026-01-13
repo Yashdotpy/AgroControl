@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .models import Crop
 from accounts.models import Profile
@@ -39,6 +39,7 @@ def add_crop(request):
             farmer=request.user,
             name=request.POST['name'],
             price=request.POST['price'],
+            unit=request.POST['unit'],
             quantity=request.POST['quantity'],
             description=request.POST['description'],
             image=request.FILES['image']
@@ -46,3 +47,14 @@ def add_crop(request):
         return redirect('farmer_dashboard')
 
     return render(request, 'add_crop.html')
+
+@login_required
+def delete_crop(request, crop_id):
+    crop = get_object_or_404(Crop, id=crop_id)
+
+    # ensure only the farmer who owns the crop can delete it
+    if crop.farmer != request.user:
+        return redirect('home')
+
+    crop.delete()
+    return redirect('farmer_dashboard')

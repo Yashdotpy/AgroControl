@@ -27,8 +27,13 @@
             <div class="card">
                 <div class="card-body">
                     <h3>{{ crop.name }}</h3>
-                    <p class="price">₹ {{ crop.price }}</p>
-                    <p>Quantity: {{ crop.quantity }}</p>
+                    <p class="price">₹ {{ crop.price }} / {{ crop.unit }}</p>
+                    <p>Quantity: {{ crop.quantity }} {{ crop.unit }}</p>
+
+                    <a href="{% url 'delete_crop' crop.id %}"
+                        onclick="return confirm('Are you sure you want to delete this crop?');">
+                        <button class="btn" style="background:#c62828;">Delete</button>
+                    </a>
                 </div>
             </div>
         {% empty %}

@@ -36,6 +36,11 @@
         <input type="number" name="max_price" placeholder="Max price"
                value="{{ request.GET.max_price }}"
                style="padding:8px; width:120px;">
+        
+        <input type="number" name="quantity" value="1" min="1"
+                placeholder="{{ crop.unit }}"
+                style="width:60px; padding:6px; margin-bottom:6px;">
+
 
         <button class="btn" style="width:120px;">Search</button>
     </form>
@@ -49,7 +54,7 @@
         <img src="{{ crop.image.url }}">
         <div class="card-body">
             <h3>{{ crop.name }}</h3>
-            <p class="price">₹ {{ crop.price }}</p>
+            <p class="price">₹ {{ crop.price }} / {{ crop.unit }}</p>
             <p>{{ crop.description|truncatewords:10 }}</p>
             <a href="{% url 'add_to_cart' crop.id %}">
                 <button class="btn">Add to Cart</button>

@@ -22,8 +22,9 @@
         <div class="card">
             <div class="card-body">
                 <h3>{{ order.crop.name }}</h3>
-                <p>Price: ₹{{ order.crop.price }}</p>
-                <p>Quantity: {{ order.quantity }}</p>
+                <p>Price: ₹{{ order.crop.price }} / {{ order.crop.uni}}</p>
+                <p>Quantity: {{ order.quantity }} {{ order.crop.unit }}</p>
+                <p>Rate: ₹{{ order.crop.price }} / {{ order.crop.unit }}</p>
                 <p>Status: <strong>{{ order.status }}</strong></p>
             </div>
         </div>

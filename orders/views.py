@@ -50,6 +50,22 @@ def view_cart(request):
     })
 
 @login_required
+def update_cart_quantity(request, item_id, action):
+    item = get_object_or_404(CartItem, id=item_id)
+
+    if action == 'increase' and item.quantity < item.crop.quantity:
+        item.quantity += 1
+
+    elif action == 'decrease':
+        item.quantity -= 1
+        if item.quantity <= 0:
+            item.delete()
+            return redirect('view_cart')
+
+    item.save()
+    return redirect('view_cart')
+
+@login_required
 def checkout(request):
     cart = get_object_or_404(Cart, user=request.user)
     items = CartItem.objects.filter(cart=cart)
