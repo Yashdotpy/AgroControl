@@ -26,6 +26,20 @@
     </div>
 </div>
 
+<div style="text-align:center; margin: 20px;">
+    <form method="get">
+        <input type="text" name="search" placeholder="Search crop..." 
+               value="{{ request.GET.search }}"
+               style="padding:8px; width:200px;">
+
+        <input type="number" name="max_price" placeholder="Max price"
+               value="{{ request.GET.max_price }}"
+               style="padding:8px; width:120px;">
+
+        <button class="btn" style="width:120px;">Search</button>
+    </form>
+</div>
+
 <h1 class="page-title">Fresh Crops Direct from Farmers</h1>
 
 <div class="container">

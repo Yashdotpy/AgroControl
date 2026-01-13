@@ -5,8 +5,17 @@ from accounts.models import Profile
 
 def home(request):
     crops = Crop.objects.all()
-    return render(request, 'home.html', {'crops': crops})
 
+    search_query = request.GET.get('search')
+    max_price = request.GET.get('max_price')
+
+    if search_query:
+        crops = crops.filter(name__icontains=search_query)
+
+    if max_price:
+        crops = crops.filter(price__lte=max_price)
+
+    return render(request, 'home.html', {'crops': crops})
 @login_required
 def farmer_dashboard(request):
     profile = Profile.objects.get(user=request.user)
