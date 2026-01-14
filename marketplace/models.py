@@ -1,8 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-
-from django.db import models
-from django.contrib.auth.models import User
+from cloudinary.models import CloudinaryField
 
 class Crop(models.Model):
     UNIT_CHOICES = (
@@ -15,7 +13,7 @@ class Crop(models.Model):
     price = models.FloatField(help_text="Price per unit")
     unit = models.CharField(max_length=10, choices=UNIT_CHOICES, default='kg')
     quantity = models.FloatField(help_text="Available quantity in selected unit")
-    image = models.ImageField(upload_to='crops/')
+    image = CloudinaryField('image')
     description = models.TextField()
 
     def __str__(self):
