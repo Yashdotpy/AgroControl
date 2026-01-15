@@ -58,27 +58,3 @@ def delete_crop(request, crop_id):
 
     crop.delete()
     return redirect('farmer_dashboard')
-
-@login_required
-def edit_crop(request, crop_id):
-    crop = get_object_or_404(Crop, id=crop_id)
-
-    # security check: only owner farmer can edit
-    if crop.farmer != request.user:
-        return redirect('home')
-
-    if request.method == 'POST':
-        crop.name = request.POST['name']
-        crop.price = request.POST['price']
-        crop.unit = request.POST['unit']
-        crop.quantity = request.POST['quantity']
-        crop.description = request.POST['description']
-
-        # update image only if new image is uploaded
-        if 'image' in request.FILES:
-            crop.image = request.FILES['image']
-
-        crop.save()
-        return redirect('farmer_dashboard')
-
-    return render(request, 'edit_crop.html', {'crop': crop})
