@@ -51,7 +51,12 @@
 <div class="container">
 {% for crop in crops %}
     <div class="card">
-        <img src="{{ crop.image.url }}">
+        {% if crop.image %}
+            <img src="{{ crop.image.url }}">
+        {% else %}
+            <img src="{% static 'img/default.jpg' %}">
+        {% endif %}
+
         <div class="card-body">
             <h3>{{ crop.name }}</h3>
             <p class="price">₹ {{ crop.price }} / {{ crop.unit }}</p>

@@ -30,6 +30,9 @@
                     <p class="price">₹ {{ crop.price }} / {{ crop.unit }}</p>
                     <p>Quantity: {{ crop.quantity }} {{ crop.unit }}</p>
 
+                    <a href="{% url 'edit_crop' crop.id %}">
+                        <button class="btn" style="margin-bottom:5px;">Edit</button>
+                    </a>
 
                     <a href="{% url 'delete_crop' crop.id %}"
                         onclick="return confirm('Are you sure you want to delete this crop?');">
